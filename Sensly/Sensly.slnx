@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../Sensly.Core/Sensly.Core.csproj" Id="ec469c11-78b6-4ef7-ab94-20b450b3e4a0" />
+  <Project Path="../Sensly.Infrastructure/Sensly.Infrastructure.csproj" Id="57de83d9-9dcf-49d1-ba61-0713bf3ecd5c" />
+  <Project Path="Sensly.UI.csproj" />
+</Solution>
