@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Sensly.Core.Domain.Entities;
 using Sensly.Core.DTO;
+using Sensly.Core.ServiceContracts;
 using Sensly.Core.ServiceContracts.Authentication;
+using Sensly.Core.ServiceContracts.Security;
 using Sensly.Infrastructure.DatabaseContext;
 
 namespace Sensly.UI.Controllers
@@ -13,21 +16,30 @@ namespace Sensly.UI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly ApplicationDbContext _context; 
-        public AuthController(IJwtTokenGenerator jwtTokenGenerator, ApplicationDbContext context)
+        private readonly IAuthService _authService;
+        
+        public AuthController(IAuthService authService)
         {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _context = context;
+            _authService = authService; 
         }
-        [HttpPost]
+
+        [HttpPost("/login")]
+
         public async Task<IActionResult> Login(LoginUserDto dto)
         {
+            string? token = await _authService.LoginAsync(dto);
+            if (token is null)
+                return Unauthorized("Password or Username Invalid");
+            return Ok(token);
+        }
 
-            User user = await _context.Users.FirstOrDefaultAsync(user => user.UserName == dto.UserName);
-            if (user is null)
-                return Unauthorized();
-            return Ok(_jwtTokenGenerator.GenerateAccessToken(user)); 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterUserDto dto )
+        {
+            string? token = await _authService.RegisterAsync(dto);
+            if (token is null)
+                return BadRequest("User Already Exists");
+            return Ok(token);
         }
     }
 }

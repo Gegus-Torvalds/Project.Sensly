@@ -7,7 +7,8 @@ namespace Sensly.Core.Domain.RepositoryContracts
 {
     public interface IUserRepository
     {
-        Task AddAsync(User user); 
+        Task AddAsync(User user);
+        Task<User?> GetUserByUsernameAsync(string username); 
 
     }
 }

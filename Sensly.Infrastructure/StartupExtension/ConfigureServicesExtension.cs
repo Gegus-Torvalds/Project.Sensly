@@ -12,6 +12,8 @@ using Sensly.Core.ServiceContracts;
 using Sensly.Core.Services;
 using Sensly.Core.ServiceContracts.Authentication;
 using Sensly.Infrastructure.Authentication;
+using Sensly.Core.ServiceContracts.Security;
+using Sensly.Infrastructure.Security;
 
 namespace Sensly.Infrastructure.StartupExtension
 {
@@ -29,8 +31,9 @@ namespace Sensly.Infrastructure.StartupExtension
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>(); 
-
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IAuthService, AuthService>(); 
         }
     }
 }

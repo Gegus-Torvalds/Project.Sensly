@@ -18,7 +18,7 @@ namespace Sensly.Core.Services
         }
        
         public async Task RegisterUserAsync(RegisterUserDto dto)
-            {
+        {
                 var user = new User()
                 {
                     UserName = dto.UserName,
@@ -28,6 +28,8 @@ namespace Sensly.Core.Services
             await _userRepository.AddAsync(user);
             
 
-            }
+        }
+
+        
     }
 }

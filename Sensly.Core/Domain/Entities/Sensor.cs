@@ -11,6 +11,6 @@ namespace Sensly.Core.Domain.Entities
 
         public string? SensorName { get; set; }
 
-        public UnitOfMeasurement Unit { get; set; } = UnitOfMeasurement.DegreesCelsius;
+        public UnitOfMeasurement Unit { get; set; }
     }
 }

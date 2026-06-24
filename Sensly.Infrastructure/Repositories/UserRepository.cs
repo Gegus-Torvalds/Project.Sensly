@@ -1,4 +1,5 @@
-﻿using Sensly.Core.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Sensly.Core.Domain.Entities;
 using Sensly.Core.Domain.RepositoryContracts;
 using Sensly.Infrastructure.DatabaseContext;
 using System;
@@ -20,6 +21,12 @@ namespace Sensly.Infrastructure.Repositories
         { 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync(); 
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.UserName == username); 
+            return user;
         }
     }
 }
