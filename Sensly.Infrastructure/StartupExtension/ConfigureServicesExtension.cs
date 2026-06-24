@@ -10,6 +10,8 @@ using Sensly.Core.Domain.RepositoryContracts;
 using Sensly.Infrastructure.Repositories;
 using Sensly.Core.ServiceContracts;
 using Sensly.Core.Services;
+using Sensly.Core.ServiceContracts.Authentication;
+using Sensly.Infrastructure.Authentication;
 
 namespace Sensly.Infrastructure.StartupExtension
 {
@@ -26,7 +28,8 @@ namespace Sensly.Infrastructure.StartupExtension
 
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddScoped<IUserService, UserService>(); 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>(); 
 
         }
     }

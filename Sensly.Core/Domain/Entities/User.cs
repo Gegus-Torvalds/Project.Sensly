@@ -9,6 +9,8 @@ namespace Sensly.Core.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public string UserName { get; set; }
 
-        public string PasswordHash { get; set; } 
+        public string PasswordHash { get; set; }
+
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>(); 
     }
 }
